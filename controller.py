@@ -49,6 +49,7 @@ class Controller:
                 elif next_calculation != 'Y' and next_calculation != 'YES':
                     raise WrongCommand("Wrong command")
                 do_input = True
+                error_count = 0
             except WrongCommand:
                 error_count += 1
                 print("Are you a fucking retard?")

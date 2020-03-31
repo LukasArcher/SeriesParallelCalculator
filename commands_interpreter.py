@@ -12,14 +12,14 @@ class CapCalculator:
         # print(f"This is parallel capacitors in float: {parallel_caps_float}")
         # ----------------------------------------------------------------------------- #
 
-        less_parallel_caps = math.floor(parallel_caps_float)
+        fewer_parallel_caps = math.floor(parallel_caps_float)
         more_parallel_caps = math.floor(parallel_caps_float) + 1
-        less_parallel_prec = abs(parallel_caps_float - less_parallel_caps)
+        less_parallel_prec = abs(parallel_caps_float - fewer_parallel_caps)
         more_parallel_prec = abs(parallel_caps_float - more_parallel_caps)
 
         if less_parallel_prec <= more_parallel_prec:
-            error_abs = abs(cap_target - (less_parallel_caps * cap_basic_power))
-            parallel_caps = less_parallel_caps
+            error_abs = abs(cap_target - (fewer_parallel_caps * cap_basic_power))
+            parallel_caps = fewer_parallel_caps
         elif more_parallel_prec < less_parallel_prec:
             error_abs = abs(cap_target - (more_parallel_caps * cap_basic_power))
             parallel_caps = more_parallel_caps
@@ -35,8 +35,8 @@ class CapCalculator:
             print(f"Number of parallel capacitors needed:\n{parallel_caps}")
             return f'With all these capacitors you will get:\n{parallel_caps * cap_basic_power} F'
         else:
-            """we choose less_parallel_caps to be able to reach our target with serial caps"""
-            parallel_caps_power = less_parallel_caps * cap_basic_power
+            """we choose fewer_parallel_caps to be able to reach our target with serial caps"""
+            parallel_caps_power = fewer_parallel_caps * cap_basic_power
             num_of_serial_cap = 2
             serial_caps = []
             while True:
@@ -56,7 +56,7 @@ class CapCalculator:
 
                 if error_percent <= precision:
                     serial_caps.append(num_of_serial_cap)
-                    print(f"Parallel capacitors:\n{parallel_caps}")
+                    print(f"Parallel capacitors:\n{fewer_parallel_caps}")
                     for i in range(len(serial_caps)):
                         print(f"Serial capacitors in the row number {i+1}:\n{serial_caps[i]}")
                     return f'With all these capacitors you will get:\n{final_power} F'
