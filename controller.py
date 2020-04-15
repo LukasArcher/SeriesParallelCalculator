@@ -7,7 +7,6 @@ sleep_time = 1
 error_limit = 3
 
 
-
 class Controller:
     def __init__(self):
         self.interface = CapInput()
@@ -27,7 +26,7 @@ class Controller:
                     error_count = 0
                 except ValueError:
                     error_count += 1
-                    print("Oh, come on man...you surely know that this is a wrong value!")
+                    print("You surely know that this is a wrong value! ;)")
                     time.sleep(sleep_time)
                     if error_count >= error_limit:
                         break
@@ -35,8 +34,7 @@ class Controller:
 
                 except WrongCommand:
                     error_count += 1
-                    print("Dude, are you fucking stupid?!")
-                    print("Don't you know that all values have to be GREATER then zero?! Try again!")
+                    print("All values have to be greater than zero!")
                     time.sleep(sleep_time)
                     if error_count >= error_limit:
                         break
@@ -52,7 +50,7 @@ class Controller:
                 error_count = 0
             except WrongCommand:
                 error_count += 1
-                print("Are you a fucking retard?")
+                print("Sorry, I don't understand that command!")
                 time.sleep(sleep_time)
                 do_input = False
                 if error_count >= error_limit:

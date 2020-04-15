@@ -16,4 +16,4 @@ class CapInput:
 
     @staticmethod
     def goodbye() -> str:
-        return 'Fuck off then!'
+        return 'Have a nice day!'

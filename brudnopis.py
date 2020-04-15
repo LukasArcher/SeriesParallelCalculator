@@ -1,5 +1,3 @@
-import math
-
 from best_possibility import FindTheBestPossibility
 
 
@@ -8,14 +6,14 @@ class CapCalculator:
     def cap_calculator(cap_basic_power: float, cap_target: float, precision: float) -> str:
         error_abs = 0
         parallel_caps = 0
-        parallel_caps_float = cap_target / cap_basic_power
+        parallel_caps_float = cap_target // cap_basic_power
 
         # ----------------------------------------------------------------------------- #
         # print(f"This is parallel capacitors in float: {parallel_caps_float}")
         # ----------------------------------------------------------------------------- #
 
-        fewer_parallel_caps = math.floor(parallel_caps_float)
-        more_parallel_caps = math.floor(parallel_caps_float) + 1
+        fewer_parallel_caps = parallel_caps
+        more_parallel_caps = parallel_caps + 1
         less_parallel_prec = abs(parallel_caps_float - fewer_parallel_caps)
         more_parallel_prec = abs(parallel_caps_float - more_parallel_caps)
 
@@ -25,7 +23,7 @@ class CapCalculator:
         elif more_parallel_prec < less_parallel_prec:
             error_abs = abs(cap_target - (more_parallel_caps * cap_basic_power))
             parallel_caps = more_parallel_caps
-        error_relative = error_abs / cap_target
+        error_relative = error_abs/cap_target
         error_percent = error_relative * 100
 
         # ----------------------------------------------------------------------------- #
@@ -42,7 +40,9 @@ class CapCalculator:
             parallel_caps_power = fewer_parallel_caps * cap_basic_power
             num_of_serial_cap = 2
             serial_caps = []
+            list_of_possibilities = []
             while True:
+
                 final_power = cap_basic_power / num_of_serial_cap + parallel_caps_power
 
                 for n in serial_caps:
@@ -59,9 +59,7 @@ class CapCalculator:
 
                 if error_percent <= precision:
                     serial_caps.append(num_of_serial_cap)
-                    fewer_parallel_caps, serial_caps = \
-                        find_the_best_possibility.best_possibility(cap_basic_power, cap_target, precision,
-                                                                   fewer_parallel_caps, serial_caps)
+                    fewer_parallel_caps, serial_caps = find_the_best_possibility.best_possibility(cap_basic_power, cap_target, precision, fewer_parallel_caps, serial_caps)
                     final_power = fewer_parallel_caps * cap_basic_power
                     for n in serial_caps:
                         final_power += cap_basic_power / n
@@ -76,3 +74,10 @@ class CapCalculator:
                     else:
                         serial_caps.append(num_of_serial_cap)
                         num_of_serial_cap += 1
+
+
+if __name__ == '__main__':
+    calc = CapCalculator()
+    print(calc.cap_calculator(39.3, 5.8, 1))
+
+
